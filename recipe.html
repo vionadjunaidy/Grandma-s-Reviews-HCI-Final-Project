@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+    
+    * {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .logo {
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+
+    .logo:hover {
+        transform: scale(1.2);
+        transition: .3s;
+    }
+
+    body {
+        background-color: beige;
+    }
+
+    .navbar {
+        overflow: hidden;
+        background-color: #302718;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .items {
+        display: flex;
+        flex-direction: row;
+        margin-top: 0;
+    }
+
+    .navbar a {
+        color: white;
+        text-align: center;
+    }
+
+        .item {
+         overflow: hidden;
+        margin-right: 20px;
+    }
+
+    .item .page {
+        border: none;
+        outline: none;
+        background-color: #302718;
+        color:#ded2a8;
+        margin: 0;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .navbar a:hover, .item:hover .page {
+        background-color: #ded2a8;
+        color: #302718;
+        transition: .3s;
+    }
+
+    .item a:hover {
+        background-color: #302718;
+        color: #ded2a8;
+        transition: .3s;
+    }
+
+    .navbar .menu i {
+        font-size: 30px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 250px;
+        z-index: 999;
+        background-color: #302718;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        }
+
+    .menu {
+        color:#ded2a8;
+        float: right;
+        padding: 5px;
+    }
+
+    .menu:hover {
+        color: #302718;
+        background-color: #ded2a8;
+    }
+
+    @media screen and (min-width: 600px) {
+        .menu {
+            display: none;
+            position: absolute;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .menu {
+            color: #ded2a8;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #302718;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .home {
+            display: none;
+        }
+        .logo {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        .sidebar {
+            width: 100%;
+        }
+    }
+
+    .button {
+        border: none;
+        background-color: #302718;
+        color: #ded2a8;
+        padding: 10px;
+        cursor: pointer;
+        margin-top: 20px;
+        border-radius: 20px;
+    }
+
+    .navbar a img {
+        height: 120px;
+        display: block;
+        margin-bottom: 0;
+    }
+
+    .exit i {
+        color: #ded2a8;
+        font-size: 30px;
+        cursor: pointer;
+        margin-top: 8px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 40px;
+    }
+
+    .gallery .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 20px 0;
+        list-style: none;
+        text-align: center;
+    }
+
+    .gallery .controls .buttons{
+        height: 40px;
+        width: 140px;
+        background: #302718;
+        color: #DED2A8;
+        font-size: 20px;
+        line-height: 40px;
+        cursor: pointer;
+        margin: 20px;
+        box-shadow: 0 3px 5px rgba(0,0,0,.3);
+        border-radius: 10px;
+    }
+
+    .gallery .controls .buttons.active {
+        background:#c7ab59;
+        color: #302718;
+    }
+
+    .gallery .image-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 20px;
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        background-color: #302718;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .upload {
+        background-color: #302718;
+        color: #DED2A8;
+        border-radius: 10px;
+        padding: 10px;
+        float: right;
+        cursor: pointer;
+        margin-right: 20px;
+    }
+
+    .box p {
+        color: #DED2A8;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .box i {
+        font-size: 20px;
+    }
+
+    .box a {
+        text-decoration: none;
+    }
+
+    .box img {
+        height: 250px;
+        width: auto;
+        display: block;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+
+    h2 {
+        color: #DED2A8;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+        .gallery .image-container {
+            grid-template-columns: repeat(1, 1fr);
+            justify-content: center;
+        }
+
+        .box {
+            width: calc(100% - 20px);
+        }
+
+        .gallery .controls .buttons {
+            font-size: 16px;
+        }
+
+        .box img {
+            height: auto;
+            max-width: 100%;
+        }
+    }
+
+    .item .active {
+        background-color: #DED2A8;
+        color: #302718;
+    }
+    </style>
+    <script>
+        $(document).ready(function(){
+            
+            $(".buttons").click(function(){
+                var filter = $(this).attr("data-filter")
+                if(filter == "all"){
+                    $(".box").show(400);
+                }else{
+                    $(".box").not("."+filter).hide(200);
+                    $(".box").filter("."+filter).show(400);
+                }
+            });
+        });
+    </script>
+    <script>
+        function showSidebar(){
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'flex'
+        }
+        function hideSidebar(){
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'none'
+        }
+
+        function checkWindowWidth() {
+            const windowWidth = window.innerWidth;
+            if (windowWidth >= 600) {
+                hideSidebar();
+            }
+        }
+
+        window.addEventListener('resize', checkWindowWidth);
+        checkWindowWidth();
+    </script>   
+    <script>
+        $(document).ready(function() {
+        $(".buttons").click(function() {
+            $(".buttons").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+    </script> 
+</head>
+<body>
+    <div class="navbar" id="myNavbar">
+        <div class="sidebar">
+            <div class="exit" onclick=hideSidebar()>
+                <i class='bx bx-x'></i>
+            </div>
+
+            <div class="item logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Grandma's Reviews Logo">
+                </a>
+            </div>
+    
+            <div class="item">
+                <a href="restaurant.html"><button class="page">Restaurants</button></a>
+            </div>
+    
+            <div class="item">
+                <a href="recipe.html"><button class="page">Recipes</button></a>
+            </div>
+    
+            <div class="item">
+                <button class="page">About Us</button>
+            </div>
+            
+            <div class="item"><a href="login.html">
+                <button class="page">Login
+                </button></a>
+            </div>
+        </div>
+
+        <div class="item logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Grandma's Reviews Logo">
+            </a>
+        </div>
+
+        <div class="home">
+            <div class="items">
+                <div class="item">
+                    <a href="restaurant.html"><button class="page">Restaurants</button></a>
+                </div>
+
+                <div class="item active">
+                    <a href="recipe.html"><button class="page">Recipes</button></a>
+                </div>
+
+                <div class="item">
+                    <button class="page">About Us</button>
+                </div>
+                
+                <div class="item">
+                    <a href="login.html">
+                        <button class="page">Login</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu" onclick=showSidebar()>
+            <a href="#">
+            <i class='bx bx-menu'></i>
+            </a>
+        </div>
+    </div>
+
+    <h1>Recipes</h1>
+
+    <div class="gallery">
+        <ul class="controls">
+            <li class="buttons active" data-filter="all">All</li>
+            <li class="buttons" data-filter="local">Local</li>
+            <li class="buttons" data-filter="western">Western</li>
+            <li class="buttons" data-filter="asian">Asian</li>
+        </ul>
+        <button class="upload">Upload a Restaurant</button>
+
+        <div class="image-container">
+            <div class="box local">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image local">
+                    <img src="https://img.jakpost.net/c/2016/06/24/2016_06_24_7079_1466755385._large.jpg" alt="Nasi Goreng">
+                    <h2>Nasi Goreng</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box local">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image local">
+                    <img src="https://lemang.sg/wp-content/uploads/2021/03/IMG_2536-1536x1024.jpg" alt="Rendang">
+                    <h2>Rendang</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box local">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image local">
+                    <img src="https://th.bing.com/th/id/OIP.N8fZUtvyj-lnku96Gq8sGgHaHV?rs=1&pid=ImgDetMain" alt="Soto Ayam">
+                    <h2>Soto Ayam</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box local">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image local">
+                    <img src="https://cdn-2.tstatic.net/tribunnews/foto/bank/images/resep-rawon1.jpg" alt="Rawon">
+                    <h2>Rawon</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box local">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image local">
+                    <img src="https://www.recipetineats.com/wp-content/uploads/2020/06/Indonesian-Gado-Gado-SQ.jpg" alt="Gado-Gado">
+                    <h2>Gado-Gado</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box western">
+                <a href="agliorecipe.html" class="image western">
+                    <img src="https://simply-delicious-food.com/wp-content/uploads/2019/09/Shrimp-Aglio-Olio-4.jpg" alt="Aglio Olio">
+                    <h2>Aglio Olio</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box western">
+                <a href="pan-seared-salmon-asparagus.html" class="image western">
+                    <img src="https://th.bing.com/th/id/OIP.tK6C8ROv3xvkvyqN73FJEwHaE8?w=1024&h=683&rs=1&pid=ImgDetMain" alt="3 Pan Seared Salmon with Asparagus">
+                    <h2>Pan Seared Salmon with Asparagus</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box western">
+                <a href="lasagna.html" class="image western">
+                    <img src="https://thestayathomechef.com/wp-content/uploads/2017/08/Most-Amazing-Lasagna-2.jpg" alt="Lasagna">
+                    <h2>Lasagna</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box western">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image western">
+                    <img src="https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Chicken-Gnocchi-Soup.webp" alt="Olive Garden Chicken Gnocchi Soup">
+                    <h2>Olive Garden Chicken Gnocchi Soup</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box western">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image western">
+                    <img src="https://th.bing.com/th/id/OIP.wH_eyMM_PiFMwhnpFvPpgAAAAA?rs=1&pid=ImgDetMain" alt="Steak Salad">
+                    <h2>Steak Salad</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box asian">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image asian">
+                    <img src="https://th.bing.com/th/id/OIP.v2atE5UaDN711R4iEAKHvAHaHa?rs=1&pid=ImgDetMain" alt="Kimchi Fried Rice">
+                    <h2>Kimchi Fried Rice</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box asian">
+                <a href="https://vionadjunaidy.github.io/HCI-Project-Restaurant-Page-Prototype/" class="image asian">
+                    <img src="https://insanelygoodrecipes.com/wp-content/uploads/2020/11/Homemade-Beef-and-Broccoli-with-Rice-800x530.webp" alt="Beef and Broccoli">
+                    <h2>Beef and Broccoli</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box asian">
+                <a href="pho.html" class="image asian">
+                    <img src="https://s.yimg.com/cd/resizer/2.0/FIT_TO_WIDTH-w5120/8b4cf27b2d6aa8ee68da59ec02ed539146f4d446.jpg" alt="Vietnamese Pho">
+                    <h2>Vietnamese Pho</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box asian">
+                <a href="xiao-long-bao.html" class="image asian">
+                    <img src="https://static.thehoneycombers.com/wp-content/uploads/sites/2/2019/09/xiao-long-bao-singapore.png" alt="Xiao Long Bao">
+                    <h2>Xiao Long Bao</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                    </p>
+                </a>
+            </div>
+
+            <div class="box asian">
+                <a href="omurice.html" class="image asian">
+                    <img src="https://static01.nyt.com/images/2018/07/24/dining/HK-omurice-horizontal/merlin_141075450_0113642e-e841-4dd6-b96f-742a29fdef10-threeByTwoMediumAt2X.jpg" alt="Omurice">
+                    <h2>Omurice</h2>
+                    <p>Ratings: 
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star' style="color: #b19232;"></i>
+                        <i class='bx bxs-star'></i>
+                        <i class='bx bxs-star'></i>
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js" defer></script>
+    <style>
+    * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 15px;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: beige;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 40px; 
+            text-align: center;
+            color: #302718;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #302718;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .items {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .navbar a {
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar .item {
+            overflow: hidden;
+        }
+
+        .sidebar .top .item:hover {
+            background-color: #ded2a8;
+            color: #302718;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .item .page {
+            border: none;
+            outline: none;
+            background-color: #302718;
+            color: #ded2a8;
+            margin: 0;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .home .item .page {
+            border: 2px solid #ded2a8;
+        }
+
+        .page.active {
+            color: #302718;
+            background-color: #ded2a8;
+        }
+
+        .navbar .background-hover:hover,
+        .item:hover .page {
+            background-color: #ded2a8;
+            color: #302718;
+            transition: .3s;
+        }
+
+        .navbar .menu i {
+            font-size: 30px;
+        }
+
+        .logo {
+            width: fit-content;
+            max-width: 150px;
+        }
+        .logo img {
+            width: 30%;
+            min-width: 150px;
+            padding: 20px;
+        }
+
+        .logo img:hover {
+            transform: scale(1.2);
+            transition: .3s;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 250px;
+            z-index: 999;
+            background-color: #302718;
+            display: none;
+            flex-direction: column;
+            margin-bottom: 0;
+        }
+
+        .cheat-space {
+            min-height: 100px;
+        }
+
+        .menu {
+            color: #ded2a8;
+            float: right;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .menu:hover {
+            color: #302718;
+            background-color: #ded2a8;
+        }
+
+        .main {
+            height: auto;
+            width: auto;
+        }
+
+        @media screen and (min-width: 600px) {
+            .menu {
+                display: none;
+                position: absolute;
+            }
+        }
+        
+        @media screen and (max-width: 600px) {
+            .menu {
+                color: #ded2a8;
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                background-color: #302718;
+            }
+            .home {
+                display: none;
+            }
+
+            .main {
+                display: none;
+            }
+
+            .cheat-space {
+                min-height: 20px;
+            }
+        }
+
+        .button {
+            border: none;
+            background-color: #302718;
+            color: #ded2a8;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 20px;
+        }
+
+        .exit i {
+            color: #ded2a8;
+            font-size: 30px;
+            cursor: pointer;
+            margin-top: 8px;
+            margin-left: 5px;
+        }
+
+        .exit i:hover {
+            background-color: #ded2a8;
+            color: #302718;
+            transition: .3s;
+            border-radius: 5px;
+        }
+
+        .items {
+            justify-content: space-between;
+        }
+
+        .left {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .home .item {
+            margin-right: 20px;
+        }
+
+        .home .login .page {
+            background-color: #ded2a8;
+            color: #302718;
+            border-radius: 10px;
+        }
+        
+        .sidebar .smborder {
+            border: 0.2px solid #ded2a8;
+            margin: 0;
+        }
+
+        .sidebar .login {
+            margin-top: auto;
+        }
+
+        .sidebar .login .page {
+            background-color: #ded2a8;
+            color: #302718;
+            border-radius: 10px;
+            margin-left: 5px;
+            margin-bottom: 5px;
+        }
+
+        #loginContainer {
+            margin-left: auto;
+        }
+    
+        *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    .container-carousel {
+            width: 90%;
+            margin: 10px auto;
+        }
+
+        .carousel {
+            border: 2px solid black;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .slider {
+            height: 100%;
+            display: flex;
+            width: 300%;
+            transition: all 0.3s;
+        }
+
+        .slider section {
+            flex-basis: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .controls .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .controls .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transition: .3s;
+        }
+
+        .controls .arrow i {
+            font-size: 30px;
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+
+        .controls ul {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%);
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .controls ul li {
+            width: 10px;
+            height: 10px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            margin: 10px;
+            background-color: #333;
+            cursor: pointer;
+        }
+
+        .controls ul li.selected {
+            background: transparent;
+        }
+
+        .slider img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    
+    .container {
+        background-color: #DED2A8;
+        width: 50%;
+        height: auto;
+        padding: 10px;
+        border-radius: 20px;
+        margin-top: 20px;
+        margin-left: 30px;
+        margin-right: 30px;
+        float: left;
+    }
+
+    @media screen and (max-width:600px) {
+        .container {
+            width: 400px;
+            height: auto;
+        }
+        .carousel {
+            height: 250px;
+        }
+    }
+
+    .text {
+        line-height: 20px;
+        position: relative;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    i {
+        font-size: 20px;
+    }
+
+    .reviews {
+        width: 40%;
+        float: left;
+        padding: 15px;
+    }
+    
+    .reviews h2 {
+        font-size: 30px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .speech-bubble {
+        background-color: #DED2A8;
+        color: #302718;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 7px 30px 40px #61605f;
+        margin-bottom: 40px;
+    }
+
+    .smborder {
+            border: 0.3px solid black;
+            margin: 8px;
+    }
+
+    .reviews i {
+        font-size: 30px;
+    }
+    .reviews p {
+        margin-top: 10px;
+    }
+
+    .reviews button {
+        background-color: #302718;
+        color: #DED2A8;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    @media screen and (max-width: 700px) {
+        .container {
+            width: 90%;
+            float: left;
+            padding: 15px;
+        }
+        .reviews {
+            width: 100%;
+            float: left;
+            padding: 15px;            
+        }        
+    }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.querySelector('.slider');
+            const leftArrow = document.querySelector('.arrow.left');
+            const rightArrow = document.querySelector('.arrow.right');
+            const indicatorParents = document.querySelector('.controls ul');
+            var sectionIndex = 0;
+
+            document.querySelectorAll('.controls li').forEach(function(indicator, ind) {
+                indicator.addEventListener('click', function() {
+                    sectionIndex = ind;
+                    document.querySelector('.controls .selected').classList.remove('selected');
+                    indicator.classList.add('selected');
+                    slider.style.transform = 'translate(' + (sectionIndex) * -33.333 + '%)';
+                });
+            });
+
+            rightArrow.addEventListener('click', function () {
+                sectionIndex = (sectionIndex < 2) ? sectionIndex + 1 : 0;
+                document.querySelector('.controls .selected').classList.remove('selected');
+                indicatorParents.children[sectionIndex].classList.add('selected');
+                slider.style.transform = 'translate(' + (sectionIndex) * -33.333 + '%)';
+            });
+
+            leftArrow.addEventListener('click', function () {
+                sectionIndex = (sectionIndex > 0) ? sectionIndex - 1 : 0;
+                document.querySelector('.controls .selected').classList.remove('selected');
+                indicatorParents.children[sectionIndex].classList.add('selected');
+                slider.style.transform = 'translate(' + (sectionIndex) * -33.333 + '%)';
+            });
+        });
+    </script>
+
+<body>
+    <div class="navbar" id="myNavbar">
+        <div class="sidebar">
+            <div class="top">
+                <div class="exit" onclick=hideSidebar()>
+                    <i class='bx bx-x'></i>
+                </div>
+
+                <div class="item">
+                    <a href="index.html" class="background-hover"><button class="page">Home</button></a>
+                </div>
+                <div class="smborder"></div>
+
+                <div class="item">
+                    <a href="restaurant(1).html" class="background-hover"><button class="page">Restaurants</button></a>
+                </div>
+                <div class="smborder"></div>
+
+                <div class="item">
+                    <a href="recipe(1).html" class="background-hover"><button class="page">Recipes</button></a>
+                </div>
+                <div class="smborder"></div>
+
+                <div class="item">
+                    <a href="aboutus.html" background-hover><button class="page">About Us</button></a>
+                </div>
+                <div class="smborder"></div>
+            </div>
+
+            <div class="login">
+                <div class="item" id="loginContainer">
+                    <a href="login.html">
+                        <button class="page">Log in</button>
+                    </a>
+                </div>
+            </div>
+            <div class="smborder"></div>
+        </div>
+
+        <div class="home">
+            <div class="items">
+                <div class="left">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="logo.png" alt="Grandma's Reviews Logo">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="restaurant(1).html" class="background-hover"><button class="page">Restaurants</button></a>
+                    </div>
+
+                    <div class="item">
+                        <a href="recipe(1).html" class="background-hover"><button class="page">Recipes</button></a>
+                    </div>
+
+                    <div class="item">
+                        <a href="aboutus.html" class="background-hover"><button class="page">About Us</button></a>
+                    </div>
+                </div>
+
+                <div class="login">
+                    <div class="item">
+                        <a href="login.html">
+                            <button class="page">Log in</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu" onclick=showSidebar()>
+            <a href="#">
+                <i class='bx bx-menu'></i>
+            </a>
+        </div>
+    </div>
+    <div class="cheat-space"></div>
+    <div class="container">
+        <div class="container-carousel">
+            <div class="carousel">
+                <div class="slider">
+                    <section><img src="casa1.jpg" alt="Restaurant Environment"></section>
+                    <section><img src="casa2.jpg" alt="Meringue Dessert"></section>
+                    <section><img src="casa3.jpg" alt="Pizza"></section>
+                </div>
+                <div class="controls">
+                    <span class="arrow left"><i class='bx bxs-left-arrow'></i></span>
+                    <span class="arrow right"><i class='bx bxs-right-arrow' ></i></span>
+                    <ul>
+                        <li class="selected"></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text">
+            <h1>Cork & Screw</h1>
+            <p>A restaurant and bar inside a wine shop, Cork&Screw is a sophisticated dining destination conveniently located in Jakarta’s hip Thamrin and SCBD area. Our cellar is home to the largest wine selection in the country while the kitchen focuses on an extensive menu comprising of European and Asian favorites.</p>
+            <br>
+            <p><b>Location:</b> Plaza Indonesia, Jl. M.H. Thamrin No.28-30, RT.9/RW.5, Gondangdia, Thamrin , Jakarta, 10350</p>
+            <br>
+            <p><b>Number:</b>+62 21 31996659</p>
+            <br>
+            <p><b>Opening Hours:</b> Monday - Sunday (11:00 - 20:30)</p>
+            <br>
+            <p><b>Rating:</b>
+                <i class='bx bxs-star' style="color: #b19232;"></i> 
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star'></i>
+            </p>
+            <br>
+            <p><b>Price:</b>
+                <i class='bx bxs-dollar-circle' style="color: #b19232;"></i> 
+                <i class='bx bxs-dollar-circle' style="color: #b19232;"></i>
+                <i class='bx bxs-dollar-circle' style="color: #b19232;"></i>
+                <i class='bx bxs-dollar-circle' style="color: #b19232;"></i>
+                <i class='bx bxs-dollar-circle' style="color: #6c6c6c;"></i>
+            </p>
+        </div>
+    </div>
+
+    <div class="reviews">
+        <h2>What they say...</h2>
+            <div class="speech-bubble"><b>Sally O.</b>
+                <div class="smborder"></div>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <p>Was here to celebrate my friend's birthday and it was fantastic! I had to get the Asiatique Gurame, which tasted really good and it was recommended by the waiter too :D.</p>
+            </div>
+        
+            <div class="speech-bubble"><b>Vina S.</b>
+                <div class="smborder"></div>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <p>Really good for dinner dates, the wine selection is wide and it's honestly a romantic place where you can get good Indonesian food.</p>
+            </div>
+        
+            <div class="speech-bubble"><b>Tilly W.</b>
+                <div class="smborder"></div>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #b19232;"></i>
+                <i class='bx bxs-star' style="color: #6c6c6c;"></i>
+                <i class='bx bxs-star' style="color: #6c6c6c;"></i>
+                <p>For someone out of town, the food here is really expensive, and tastes the same if I were to get Indonesian food near my house. For me it's not worth it.</p>
+            </div>
+            <a href="review.html"><button>Upload a Review</button></a>
+    </div>
+</body>
+</html>
